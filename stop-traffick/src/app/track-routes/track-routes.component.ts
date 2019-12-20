@@ -63,15 +63,15 @@ export class TrackRoutesComponent implements OnInit {
         features.push(iconFeature);
 
         if (i > 0 ) {
+          const dist = this.getEuclidean(Markers[i-1].c, item);
           const p1 = ol.proj.transform(Markers[i-1].c, 'EPSG:4326', 'EPSG:3857');
           const p2 = ol.proj.transform(item, 'EPSG:4326', 'EPSG:3857');
-          const dist = this.getEuclidean(p1, p2);
 
           const featureLine = new ol.Feature({
             geometry: new ol.geom.LineString([p1, p2])
           });
           featureLine.setStyle(new ol.style.Style({
-            stroke: new ol.style.Stroke({ color: dist > 100000 ? 'red' : 'green', width: 2 })
+            stroke: new ol.style.Stroke({ color: dist > 1 ? 'red' : 'green', width: 2 })
           }));
           features.push(featureLine);
         }
@@ -111,6 +111,86 @@ export class TrackRoutesComponent implements OnInit {
 
   showAll() {
     this.clearLayers();
+
+    const flags = {};
+
+    const timeMap = {};
+    const timeClustered = {};
+
+    for (var p = 0; p < this.speople.length; p++) {
+      flags[p] = 0;
+
+      var person = this.speople[p];
+      for (var i = 0; i < person.length; i++) {
+        const time = person[i].t;
+        const coord = person[i].c;
+
+        if (!timeMap.hasOwnProperty(time)) {
+          timeMap[time] = [];
+        }
+        timeMap[time].push({ p: p, c: coord });
+      }
+    }
+
+    for (const t in Object.keys(timeMap)) {
+      const tmap = timeMap[t];
+      const tlen = tmap.length;
+
+      if (!timeClustered.hasOwnProperty(t)) {
+        timeClustered[t] = [];
+      }
+
+      for (var i = 0; i < tlen; i++) {
+        let clustered = false;
+        for (var j = 0; j < timeClustered[t].length; j++) {
+          if (this.getEuclidean(timeClustered[t][j][0].c, tmap[i].c) < 1) {
+            clustered = true;
+            timeClustered[t][j].push(tmap[i]);
+          }
+        }
+
+        if (!clustered) {
+          timeClustered[t].push([tmap[i]])
+        }
+      }
+    }
+
+    console.log(timeClustered);
+
+    // ==================================================================================================
+    const tkeys = Object.keys(timeClustered)
+    for (var tk = 0; tk < tkeys.length; tk++) {
+      if (tk == 0) continue;
+      const t = tkeys[tk]; const tm1 = tkeys[tk - 1];
+      for (var i = 0; i < timeClustered[t].length; i++) {
+        for (var j = 0; j < timeClustered[t][i].length; j++) {
+          const person = timeClustered[t][i][j];
+          for (var i1 = 0; i1 < timeClustered[tm1].length; i1++) {
+            for (var j1 = 0; j1 < timeClustered[tm1][i1].length; j1++) {
+              const person1 = timeClustered[tm1][i1][j1];
+              if (person.p == person1.p) {
+                let count = 0;
+                for (var i2 = 0; i2 < timeClustered[t][i].length; i2++) {
+                  for (var i3 = 0; i3 < timeClustered[tm1][i1].length; i3++) {
+                    if (timeClustered[t][i][i2].p == timeClustered[tm1][i1][i3].p) {
+                      count++;
+                    }
+                  }
+                }
+                if (count > 3) { flags[person.p]++; }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    for (let p of Object.keys(flags)) {
+      flags[p] /= Object.keys(timeMap).map(s => Number(s)).reduce(function(a, b) {return Math.max(a, b);});
+    }
+
+    console.log(flags);
+
     this.addRoutes(this.mapMissing, this.speople);
   }
 
