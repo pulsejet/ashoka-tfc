@@ -13,6 +13,10 @@
     width: 100%;
 }
 
+.btn {
+    margin-bottom: 4px;
+}
+
 #people {
     position: absolute;
     padding: 20px;

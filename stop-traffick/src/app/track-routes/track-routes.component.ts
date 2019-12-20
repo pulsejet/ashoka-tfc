@@ -36,6 +36,10 @@ export class TrackRoutesComponent implements OnInit {
     });
   }
 
+  getEuclidean(p1, p2) {
+    return Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
+  }
+
   addRoutes(map, People) {
 		var features = [];
 
@@ -58,8 +62,21 @@ export class TrackRoutesComponent implements OnInit {
         iconFeature.setStyle(iconStyle);
         features.push(iconFeature);
 
+        if (i > 0 ) {
+          const p1 = ol.proj.transform(Markers[i-1].c, 'EPSG:4326', 'EPSG:3857');
+          const p2 = ol.proj.transform(item, 'EPSG:4326', 'EPSG:3857');
+          const dist = this.getEuclidean(p1, p2);
+
+          const featureLine = new ol.Feature({
+            geometry: new ol.geom.LineString([p1, p2])
+          });
+          featureLine.setStyle(new ol.style.Style({
+            stroke: new ol.style.Stroke({ color: dist > 100000 ? 'red' : 'green', width: 2 })
+          }));
+          features.push(featureLine);
+        }
       }
-		}
+    }
 
 		var vectorSource = new ol.source.Vector({
 			features: features
@@ -77,7 +94,7 @@ export class TrackRoutesComponent implements OnInit {
   ngOnInit() {
     this.mapMissing = this.getmap('map-missing');
 
-    this.addRoutes(this.mapMissing, getSightings());
+    this.addRoutes(this.mapMissing, this.speople);
 
     this.mapMissing.on('click', (args) => {
       var lonlat = ol.proj.transform(args.coordinate, 'EPSG:3857', 'EPSG:4326');
@@ -92,9 +109,13 @@ export class TrackRoutesComponent implements OnInit {
     this.layers = [];
   }
 
-  showPerson(i) {
+  showAll() {
+    this.clearLayers();
+    this.addRoutes(this.mapMissing, this.speople);
+  }
+
+  showPerson(i: number) {
     const routes = [this.speople[i]];
-    console.log(routes)
     this.clearLayers();
     this.addRoutes(this.mapMissing, routes);
   }
