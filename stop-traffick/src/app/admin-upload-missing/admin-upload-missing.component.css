@@ -1,0 +1,6 @@
+.full-width-form {
+    width: 100%;
+    margin: 3px;
+    max-width: 400px;
+    display: block;
+}

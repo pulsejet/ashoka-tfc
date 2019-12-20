@@ -1,0 +1,12 @@
+<app-admin-header></app-admin-header>
+
+<div class="amain">
+    <h2> Missing Persons </h2>
+
+    <div *ngIf="people">
+        <div *ngFor="let person of people">
+            <h3>{{ person.name }}</h3>
+            <img *ngIf="person.pictures" [src]="person.pictures" style="max-height: 80px;" />
+        </div>
+    </div>
+</div>

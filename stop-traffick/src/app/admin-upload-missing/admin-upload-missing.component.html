@@ -1,0 +1,18 @@
+<app-admin-header></app-admin-header>
+
+<div class="amain">
+    <h2> Missing Persons </h2>
+
+    <mat-form-field class="full-width-form">
+        <input [(ngModel)]="p.name" matInput placeholder="Name" required>
+    </mat-form-field>
+
+    <input type="file" id="file" />
+
+    <button mat-raised-button color="accent"
+            class="full-width-form"
+            (click)="go()">
+        Upload
+    </button>
+
+</div>
