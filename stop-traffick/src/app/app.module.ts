@@ -35,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CrowdsourceComponent } from './crowdsource/crowdsource.component';
 import { CrowdsourcedComponent } from './crowdsourced/crowdsourced.component';
 import { HeatMapComponent } from './heat-map/heat-map.component';
+import { TrackRoutesComponent } from './track-routes/track-routes.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { HeatMapComponent } from './heat-map/heat-map.component';
     AdminListMissingComponent,
     CrowdsourceComponent,
     CrowdsourcedComponent,
-    HeatMapComponent
+    HeatMapComponent,
+    TrackRoutesComponent,
   ],
   imports: [
     BrowserModule,

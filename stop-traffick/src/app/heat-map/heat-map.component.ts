@@ -72,6 +72,8 @@ export class HeatMapComponent implements OnInit {
     this.mapMissing.on('click', (args) => {
       var lonlat = ol.proj.transform(args.coordinate, 'EPSG:3857', 'EPSG:4326');
       this.coords.push(lonlat);
+
+      prompt("copuy", JSON.stringify(lonlat));
     });
   }
 

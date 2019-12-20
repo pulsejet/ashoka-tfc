@@ -1,0 +1,11 @@
+<app-admin-header></app-admin-header>
+
+<div class="amain">
+    <div id="map-missing" class="map"></div>
+    <div id="people">
+        <button *ngFor="let p of speople; let i = index" style="margin-bottom: 4px;"
+         mat-button color="primary" class="full-width"
+         (click)="showPerson(i)"
+         > Person #{{i + 1}}</button>
+    </div>
+</div>
