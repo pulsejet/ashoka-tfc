@@ -4,3 +4,10 @@
     max-width: 400px;
     display: block;
 }
+
+#map {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    top: 14vh; right: 0;
+}

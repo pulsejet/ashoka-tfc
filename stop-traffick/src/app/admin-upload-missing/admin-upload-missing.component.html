@@ -1,18 +1,28 @@
-<app-admin-header></app-admin-header>
+    <app-admin-header></app-admin-header>
 
-<div class="amain">
-    <h2> Missing Persons </h2>
+    <div class="amain">
+        <h2> Missing Persons </h2>
 
-    <mat-form-field class="full-width-form">
-        <input [(ngModel)]="p.name" matInput placeholder="Name" required>
-    </mat-form-field>
+        <mat-form-field class="full-width-form">
+            <input [(ngModel)]="p.name" matInput placeholder="Name" required>
+        </mat-form-field>
 
-    <input type="file" id="file" />
+        <div>
+            Last Seen -
+            <b>Lat:</b> {{ p.lkl_lat }} <b>Lng:</b> {{ p.lkl_lng }}
+        </div>
 
-    <button mat-raised-button color="accent"
-            class="full-width-form"
-            (click)="go()">
-        Upload
-    </button>
+        <div id="map" class="map"></div>
 
-</div>
+        <div>
+            Photograph:<br/>
+            <input type="file" id="file" />
+        </div>
+
+        <button mat-raised-button color="accent"
+                class="full-width-form"
+                (click)="go()">
+            Upload
+        </button>
+
+    </div>
