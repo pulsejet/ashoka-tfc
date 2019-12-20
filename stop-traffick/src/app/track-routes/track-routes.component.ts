@@ -13,6 +13,7 @@ export class TrackRoutesComponent implements OnInit {
   mapMissing: any;
 
   layers = [];
+  prob = 0;
 
   coords = [];
   speople = [];
@@ -109,7 +110,10 @@ export class TrackRoutesComponent implements OnInit {
     this.layers = [];
   }
 
-  showAll() {
+  showAll(e) {
+    const probability = e !== null ? e.target.value / 100.0 : 0;
+    this.prob = probability;
+
     this.clearLayers();
 
     const flags = {};
@@ -155,8 +159,6 @@ export class TrackRoutesComponent implements OnInit {
       }
     }
 
-    console.log(timeClustered);
-
     // ==================================================================================================
     const tkeys = Object.keys(timeClustered)
     for (var tk = 0; tk < tkeys.length; tk++) {
@@ -185,13 +187,18 @@ export class TrackRoutesComponent implements OnInit {
       }
     }
 
+    const peopleToShow = [];
     for (let p of Object.keys(flags)) {
       flags[p] /= Object.keys(timeMap).map(s => Number(s)).reduce(function(a, b) {return Math.max(a, b);});
+
+      if (flags[p] >= probability) {
+        peopleToShow.push(this.speople[p]);
+      }
     }
 
-    console.log(flags);
+    //console.log(flags);
 
-    this.addRoutes(this.mapMissing, this.speople);
+    this.addRoutes(this.mapMissing, peopleToShow);
   }
 
   showPerson(i: number) {

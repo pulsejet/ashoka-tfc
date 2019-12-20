@@ -3,7 +3,12 @@
 <div class="amain">
     <div id="map-missing" class="map"></div>
     <div id="people">
-        <button mat-button color="primary" class="full-width btn" (click)="showAll()"> Show All </button>
+
+        <div class="full-width">
+            Probability ({{prob}}): <input type="range" min="0" max="100" value="0" (input)="showAll($event)" class="slider">
+        </div>
+
+        <button mat-button color="primary" class="full-width btn" (click)="showAll(null)"> Show All </button>
         <button *ngFor="let p of speople; let i = index"
              mat-button color="primary" class="full-width btn"
             (click)="showPerson(i)"
