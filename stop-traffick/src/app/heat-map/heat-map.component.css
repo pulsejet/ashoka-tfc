@@ -1,0 +1,10 @@
+.map {
+    position: absolute;
+    top: 14vh;
+    height: 86vh;
+    width: 100vw;
+}
+
+#map-missing {
+    left: 0;
+}

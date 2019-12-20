@@ -34,6 +34,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CrowdsourceComponent } from './crowdsource/crowdsource.component';
 import { CrowdsourcedComponent } from './crowdsourced/crowdsourced.component';
+import { HeatMapComponent } from './heat-map/heat-map.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { CrowdsourcedComponent } from './crowdsourced/crowdsourced.component';
     AdminUploadMissingComponent,
     AdminListMissingComponent,
     CrowdsourceComponent,
-    CrowdsourcedComponent
+    CrowdsourcedComponent,
+    HeatMapComponent
   ],
   imports: [
     BrowserModule,

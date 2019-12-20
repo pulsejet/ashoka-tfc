@@ -5,6 +5,7 @@ import { AdminUploadMissingComponent } from './admin-upload-missing/admin-upload
 import { AdminListMissingComponent } from './admin-list-missing/admin-list-missing.component';
 import { CrowdsourceComponent } from './crowdsource/crowdsource.component';
 import { CrowdsourcedComponent } from './crowdsourced/crowdsourced.component';
+import { HeatMapComponent } from './heat-map/heat-map.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'upload-missing', component: AdminUploadMissingComponent },
   { path: 'list-missing', component: AdminListMissingComponent },
   { path: 'crowdsourced', component: CrowdsourcedComponent },
+  { path: 'heat-map', component: HeatMapComponent },
 
   { path: 'crowdsource', component: CrowdsourceComponent },
   { path: '**', redirectTo: 'crowdsource' },
