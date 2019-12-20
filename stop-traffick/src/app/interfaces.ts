@@ -4,3 +4,7 @@ export interface MissingPerson {
     lkl_lng: number;
     pictures: string;
 }
+
+export interface CrowdsourcedPhoto {
+    picture: string;
+}

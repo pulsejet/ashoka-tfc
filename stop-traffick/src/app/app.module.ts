@@ -32,6 +32,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
+import { CrowdsourceComponent } from './crowdsource/crowdsource.component';
+import { CrowdsourcedComponent } from './crowdsourced/crowdsourced.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     AdminHeaderComponent,
     AdminUploadMissingComponent,
-    AdminListMissingComponent
+    AdminListMissingComponent,
+    CrowdsourceComponent,
+    CrowdsourcedComponent
   ],
   imports: [
     BrowserModule,

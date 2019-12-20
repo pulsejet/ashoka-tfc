@@ -1,0 +1,9 @@
+<app-admin-header></app-admin-header>
+
+<div class="amain">
+    <h2> Crowdsourced Photos </h2>
+
+    <ng-container *ngFor="let p of photos">
+        <img *ngIf="p.picture" [src]="p.picture" style="height: 120px; margin: 5px" />
+    </ng-container>
+</div>

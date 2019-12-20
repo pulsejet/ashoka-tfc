@@ -21,7 +21,9 @@ from backend import views as backend_views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('api/test', backend_views.test_api),
     path('api/upload-missing', backend_views.missing_person_upload),
     path('api/list-missing', backend_views.missing_person_list),
+
+    path('api/crowdsource', backend_views.crowdsource),
+    path('api/crowdsourced', backend_views.crowdsourced),
 ]

@@ -1,0 +1,12 @@
+<div style="font-size: 1.2em; margin: 40px;">
+    Click here to upload a photograph: <br/><br/>
+    <img [src]="preview" id="preview" style="max-height: 300px; cursor: pointer;" (click)="file.click()" />
+    <input type="file" id="file" accept="image/*" style="display: none" (change)="filechange()" #file />
+
+    <br/><br/>
+    <button mat-raised-button color="accent"
+        class="full-width-form" style="width: 200px"
+        (click)="go()">
+        Upload
+    </button>
+</div>

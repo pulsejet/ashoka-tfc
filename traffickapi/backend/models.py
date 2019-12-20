@@ -16,3 +16,11 @@ class MissingPersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = MissingPerson
         fields = '__all__'
+
+class CrowdsourcedPhoto(models.Model):
+    picture = models.TextField(blank=True)
+
+class CrowdsourcedPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CrowdsourcedPhoto
+        fields = '__all__'
